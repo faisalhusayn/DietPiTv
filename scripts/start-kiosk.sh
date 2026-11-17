@@ -5,12 +5,12 @@
 # ==============================================================================
 
 # 1. Disable X11 blanking and screen timeouts
-xset s off
-xset s noblank
-xset -dpms
+xset s off 2>/dev/null || true
+xset s noblank 2>/dev/null || true
+xset -dpms 2>/dev/null || true
 
 # 2. Hide mouse cursor when inactive
-unclutter -idle 1 -root &
+unclutter -idle 1 -root 2>/dev/null &
 
 # 3. Wait for backend service to become healthy on port 8080
 echo "Waiting for Smart TV backend service on http://localhost:8080..."
@@ -20,12 +20,15 @@ done
 echo "Backend is reachable. Launching Chromium Kiosk..."
 
 # 4. Clean up any previous crash session flags
+mkdir -p ~/.config/chromium/Default
 sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' ~/.config/chromium/Default/Preferences 2>/dev/null || true
 sed -i 's/"exit_type":"Crashed"/"exit_type":"Normal"/' ~/.config/chromium/Default/Preferences 2>/dev/null || true
 
 # 5. Continuous Kiosk Loop (Auto-recovery on crash)
 while true; do
   chromium \
+    --no-sandbox \
+    --test-type \
     --kiosk \
     --noerrdialogs \
     --disable-infobars \
