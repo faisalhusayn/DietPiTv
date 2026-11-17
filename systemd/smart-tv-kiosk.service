@@ -7,6 +7,7 @@ Wants=smart-tv.service
 Type=simple
 User=root
 WorkingDirectory=/opt/smart-tv
+Environment=DISPLAY=:0
 ExecStart=/usr/bin/xinit /opt/smart-tv/scripts/start-kiosk.sh -- :0 -nocursor
 Restart=always
 RestartSec=3
