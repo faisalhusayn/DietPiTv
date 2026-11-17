@@ -42,6 +42,7 @@ apt-get install -y --no-install-recommends \
   xserver-xorg-core \
   xinit \
   x11-xserver-utils \
+  xserver-xorg-legacy \
   chromium \
   unclutter \
   cec-utils \
@@ -50,15 +51,19 @@ apt-get install -y --no-install-recommends \
   python3-venv \
   curl
 
-echo -e "${GREEN}[4/8] Deploying application files to ${INSTALL_DIR}...${NC}"
-mkdir -p "$INSTALL_DIR"
-cp -r "$CURRENT_DIR"/* "$INSTALL_DIR/"
+echo -e "${GREEN}[4/8] Checking deployment directory...${NC}"
+if [ "$CURRENT_DIR" != "$INSTALL_DIR" ]; then
+  mkdir -p "$INSTALL_DIR"
+  cp -rf "$CURRENT_DIR"/* "$INSTALL_DIR/" 2>/dev/null || true
+fi
 
 # Ensure correct permissions
 chmod +x "$INSTALL_DIR/scripts"/*.sh
 
 echo -e "${GREEN}[5/8] Setting up Python virtual environment...${NC}"
-python3 -m venv "$INSTALL_DIR/venv"
+if [ ! -d "$INSTALL_DIR/venv" ]; then
+  python3 -m venv "$INSTALL_DIR/venv"
+fi
 "$INSTALL_DIR/venv/bin/pip" install --upgrade pip
 "$INSTALL_DIR/venv/bin/pip" install -r "$INSTALL_DIR/backend/requirements.txt"
 
@@ -86,6 +91,17 @@ if [ -f "$BOOT_CONFIG" ]; then
     echo "hdmi_drive=2" >> "$BOOT_CONFIG"
   fi
   echo "Updated $BOOT_CONFIG (gpu_mem=128, HDMI hotplug enabled)."
+fi
+
+# Configure Xwrapper permissions
+if [ -f "/etc/X11/Xwrapper.config" ]; then
+  sed -i 's/allowed_users=console/allowed_users=anybody/' /etc/X11/Xwrapper.config 2>/dev/null || true
+  if ! grep -q "needs_root_rights=yes" /etc/X11/Xwrapper.config; then
+    echo "needs_root_rights=yes" >> /etc/X11/Xwrapper.config
+  fi
+else
+  mkdir -p /etc/X11
+  echo -e "allowed_users=anybody\nneeds_root_rights=yes" > /etc/X11/Xwrapper.config
 fi
 
 echo -e "${GREEN}[7/8] Installing and enabling systemd services...${NC}"
