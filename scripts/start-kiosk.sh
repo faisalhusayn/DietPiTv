@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ==============================================================================
 # Smart TV Kiosk Startup Script (Executed under xinit)
-# Launches unclutter (mouse hide) and Chromium Kiosk Mode with RPi 3B+ optimizations
+# Launches matchbox-window-manager, unclutter, and Chromium in edge-to-edge fullscreen
 # ==============================================================================
 
 # 1. Disable X11 blanking and screen timeouts
@@ -12,19 +12,22 @@ xset -dpms 2>/dev/null || true
 # 2. Hide mouse cursor when inactive
 unclutter -idle 1 -root 2>/dev/null &
 
-# 3. Wait for backend service to become healthy on port 8080
+# 3. Launch frameless kiosk window manager (Forces 100% fullscreen coverage)
+matchbox-window-manager -use_titlebar no 2>/dev/null &
+
+# 4. Wait for backend service to become healthy on port 8080
 echo "Waiting for Smart TV backend service on http://localhost:8080..."
 until curl -s http://localhost:8080/api/system/info > /dev/null; do
   sleep 0.5
 done
 echo "Backend is reachable. Launching Chromium Kiosk..."
 
-# 4. Clean up any previous crash session flags
+# 5. Clean up any previous crash session flags
 mkdir -p ~/.config/chromium/Default
 sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' ~/.config/chromium/Default/Preferences 2>/dev/null || true
 sed -i 's/"exit_type":"Crashed"/"exit_type":"Normal"/' ~/.config/chromium/Default/Preferences 2>/dev/null || true
 
-# 5. Continuous Kiosk Loop (Auto-recovery on crash)
+# 6. Continuous Kiosk Loop (Auto-recovery on crash)
 while true; do
   chromium \
     --no-sandbox \
@@ -32,6 +35,7 @@ while true; do
     --kiosk \
     --start-fullscreen \
     --start-maximized \
+    --window-size=1920,1080 \
     --window-position=0,0 \
     --noerrdialogs \
     --disable-infobars \
