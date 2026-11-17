@@ -1,0 +1,90 @@
+[
+  {
+    "id": "youtube",
+    "name": "YouTube",
+    "url": "https://www.youtube.com/tv",
+    "icon": "/assets/icons/youtube.svg",
+    "category": "streaming",
+    "enabled": true,
+    "order": 1,
+    "drm_warning": false,
+    "description": "Watch videos, music, and streams optimized for TV"
+  },
+  {
+    "id": "jellyfin",
+    "name": "Jellyfin",
+    "url": "http://localhost:8096",
+    "icon": "/assets/icons/jellyfin.svg",
+    "category": "local_media",
+    "enabled": true,
+    "order": 2,
+    "drm_warning": false,
+    "description": "Open-source personal media server for your movies and shows"
+  },
+  {
+    "id": "plex",
+    "name": "Plex",
+    "url": "https://app.plex.tv/desktop",
+    "icon": "/assets/icons/plex.svg",
+    "category": "streaming",
+    "enabled": true,
+    "order": 3,
+    "drm_warning": false,
+    "description": "Stream movies, television shows, and your media collection"
+  },
+  {
+    "id": "spotify",
+    "name": "Spotify",
+    "url": "https://open.spotify.com",
+    "icon": "/assets/icons/spotify.svg",
+    "category": "music",
+    "enabled": true,
+    "order": 4,
+    "drm_warning": false,
+    "description": "Stream millions of songs and podcasts on your television"
+  },
+  {
+    "id": "netflix",
+    "name": "Netflix",
+    "url": "https://www.netflix.com",
+    "icon": "/assets/icons/netflix.svg",
+    "category": "streaming",
+    "enabled": true,
+    "order": 5,
+    "drm_warning": true,
+    "description": "Watch TV shows and movies online (Widevine L3 software decoding)"
+  },
+  {
+    "id": "prime",
+    "name": "Prime Video",
+    "url": "https://www.primevideo.com",
+    "icon": "/assets/icons/prime.svg",
+    "category": "streaming",
+    "enabled": true,
+    "order": 6,
+    "drm_warning": true,
+    "description": "Amazon Prime Video streaming (Widevine L3 software decoding)"
+  },
+  {
+    "id": "browser",
+    "name": "Web Browser",
+    "url": "https://duckduckgo.com",
+    "icon": "/assets/icons/browser.svg",
+    "category": "utilities",
+    "enabled": true,
+    "order": 7,
+    "drm_warning": false,
+    "description": "Browse the open web on your television display"
+  },
+  {
+    "id": "retro_games",
+    "name": "Retro Games",
+    "url": "https://emulatoronline.com",
+    "icon": "/assets/icons/games.svg",
+    "category": "games",
+    "enabled": true,
+    "order": 8,
+    "drm_warning": false,
+    "description": "Play classic web-based retro console titles"
+  }
+]

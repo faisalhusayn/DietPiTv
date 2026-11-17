@@ -1,0 +1,13 @@
+{
+  "display_scale": 1.0,
+  "screensaver_timeout_minutes": 5,
+  "screensaver_enabled": true,
+  "theme_accent": "blue",
+  "jellyfin_url": "http://localhost:8096",
+  "jellyfin_api_key": "",
+  "local_media_path": "/media",
+  "startup_screen": "home",
+  "cec_enabled": true,
+  "cec_repeat_delay_ms": 250,
+  "animations_reduced": true
+}

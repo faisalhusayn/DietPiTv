@@ -1,0 +1,295 @@
+/* ==========================================================================
+   Smartphone Touch Remote Control Stylesheet
+   Optimized for mobile touchscreens (iOS Safari, Android Chrome)
+   ========================================================================== */
+
+:root {
+  --bg-remote: #0a0e17;
+  --bg-remote-surface: #141b2a;
+  --bg-dpad: #1a2336;
+  --bg-btn: #222d44;
+  --bg-btn-active: #3b82f6;
+  --accent-blue: #3b82f6;
+  --accent-glow: rgba(59, 130, 246, 0.4);
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --border-remote: rgba(255, 255, 255, 0.08);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+body {
+  background-color: var(--bg-remote);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  overflow-x: hidden;
+}
+
+.remote-wrapper {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Header & Connection status */
+.remote-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--bg-remote-surface);
+  border-radius: 14px;
+  border: 1px solid var(--border-remote);
+}
+
+.remote-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.connection-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.connection-indicator.online {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.connection-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+/* Touch Text Input Bar */
+.text-input-bar {
+  display: flex;
+  gap: 8px;
+  background: var(--bg-remote-surface);
+  padding: 8px;
+  border-radius: 14px;
+  border: 1px solid var(--border-remote);
+}
+
+.remote-text-input {
+  flex: 1;
+  background: var(--bg-remote);
+  border: 1px solid var(--border-remote);
+  border-radius: 8px;
+  color: #ffffff;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.remote-text-input:focus {
+  border-color: var(--accent-blue);
+}
+
+.btn-send-text {
+  background: var(--accent-blue);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 0 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* System Action Buttons (Power, Home, Back, Search) */
+.system-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.remote-btn {
+  height: 56px;
+  background: var(--bg-btn);
+  border: 1px solid var(--border-remote);
+  border-radius: 14px;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background 0.1s ease, transform 0.1s ease;
+}
+
+.remote-btn:active {
+  background: var(--bg-btn-active);
+  transform: scale(0.95);
+}
+
+.remote-btn svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+}
+
+/* Circular D-Pad Controller */
+.dpad-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.dpad-disc {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: var(--bg-dpad);
+  border: 2px solid var(--border-remote);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 2px 10px rgba(255, 255, 255, 0.05);
+}
+
+.dpad-btn {
+  position: absolute;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.dpad-btn:active {
+  color: var(--accent-blue);
+}
+
+.dpad-btn-up {
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 70px;
+}
+
+.dpad-btn-down {
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 70px;
+}
+
+.dpad-btn-left {
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 70px;
+  height: 100px;
+}
+
+.dpad-btn-right {
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 70px;
+  height: 100px;
+}
+
+.dpad-btn-ok {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: var(--bg-btn);
+  border: 2px solid var(--border-remote);
+  font-size: 1.1rem;
+  font-weight: 800;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+.dpad-btn-ok:active {
+  background: var(--accent-blue);
+  transform: translate(-50%, -50%) scale(0.92);
+}
+
+/* Media & Volume Controls */
+.media-volume-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+/* Quick App Launch Shortcuts */
+.quick-apps-section {
+  background: var(--bg-remote-surface);
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border-remote);
+}
+
+.quick-apps-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.quick-apps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.quick-app-btn {
+  height: 48px;
+  background: var(--bg-btn);
+  border: 1px solid var(--border-remote);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.quick-app-btn img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}

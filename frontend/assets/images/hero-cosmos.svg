@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 500" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b132b"/>
+      <stop offset="50%" stop-color="#1c2541"/>
+      <stop offset="100%" stop-color="#3a506b"/>
+    </linearGradient>
+    <radialGradient id="nebula" cx="70%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#48cae4" stop-opacity="0.6"/>
+      <stop offset="50%" stop-color="#7209b7" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="fadeBottom" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="60%" stop-color="#0a0e17" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#0a0e17" stop-opacity="1"/>
+    </linearGradient>
+    <linearGradient id="fadeLeft" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0a0e17" stop-opacity="0.95"/>
+      <stop offset="40%" stop-color="#0a0e17" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#0a0e17" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="500" fill="url(#skyGrad)"/>
+  <rect width="1280" height="500" fill="url(#nebula)"/>
+  <!-- Constellation stars -->
+  <circle cx="200" cy="80" r="1.5" fill="#ffffff" opacity="0.8"/>
+  <circle cx="450" cy="140" r="2" fill="#ffffff" opacity="0.9"/>
+  <circle cx="850" cy="70" r="1.5" fill="#ffffff" opacity="0.7"/>
+  <circle cx="950" cy="180" r="2.5" fill="#ffffff" opacity="0.95"/>
+  <circle cx="1100" cy="90" r="1.5" fill="#ffffff" opacity="0.6"/>
+  <circle cx="750" cy="220" r="1.2" fill="#48cae4" opacity="0.8"/>
+  <circle cx="1020" cy="280" r="1.8" fill="#f72585" opacity="0.7"/>
+  <!-- Planet ring -->
+  <ellipse cx="980" cy="220" rx="160" ry="40" fill="none" stroke="#48cae4" stroke-width="3" opacity="0.4" transform="rotate(-15 980 220)"/>
+  <circle cx="980" cy="220" r="70" fill="#f72585" opacity="0.5"/>
+  <!-- Overlays for 10-foot legibility -->
+  <rect width="1280" height="500" fill="url(#fadeLeft)"/>
+  <rect width="1280" height="500" fill="url(#fadeBottom)"/>
+</svg>

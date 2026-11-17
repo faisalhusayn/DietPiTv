@@ -1,0 +1,55 @@
+/* ==========================================================================
+   Responsive Television Scaling (720p / 1080p / 4K)
+   ========================================================================== */
+
+/* 720p Television Displays (1280 x 720) */
+@media screen and (max-width: 1366px), screen and (max-height: 768px) {
+  :root {
+    --ui-scale: 0.85;
+    --nav-height: 60px;
+    --screen-padding: 32px;
+  }
+
+  .hero-featured-card {
+    height: 300px;
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .hero-content {
+    max-width: 70%;
+    padding: 24px 32px;
+  }
+
+  .app-tile {
+    flex: 0 0 135px;
+    height: 135px;
+  }
+
+  .app-tile-icon-wrapper {
+    width: 48px;
+    height: 48px;
+  }
+
+  .media-card {
+    flex: 0 0 230px;
+    height: 150px;
+  }
+
+  .key-btn {
+    height: 44px;
+    min-width: 44px;
+    font-size: 1.1rem;
+  }
+}
+
+/* High-DPI / 4K Displays (3840 x 2160) */
+@media screen and (min-width: 2560px) {
+  :root {
+    --ui-scale: 1.6;
+    --nav-height: 110px;
+    --screen-padding: 80px;
+  }
+}

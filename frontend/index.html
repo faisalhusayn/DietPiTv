@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Smart TV Launcher</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+  <div id="tv-app">
+    <!-- Top Navigation Bar -->
+    <header id="top-nav-bar">
+      <div class="brand-section">
+        <div class="brand-badge">SMART TV</div>
+      </div>
+
+      <nav class="nav-links" role="navigation">
+        <button type="button" class="nav-item focusable active" data-screen="home" tabindex="0">
+          <img src="/assets/icons/home.svg" alt="" width="20" height="20"/> Home
+        </button>
+        <button type="button" class="nav-item focusable" data-screen="apps" tabindex="0">
+          <img src="/assets/icons/apps.svg" alt="" width="20" height="20"/> Apps
+        </button>
+        <button type="button" class="nav-item focusable" data-screen="library" tabindex="0">
+          <img src="/assets/icons/library.svg" alt="" width="20" height="20"/> Library
+        </button>
+        <button type="button" class="nav-item focusable" data-screen="search" tabindex="0">
+          <img src="/assets/icons/search.svg" alt="" width="20" height="20"/> Search
+        </button>
+        <button type="button" class="nav-item focusable" data-screen="settings" tabindex="0">
+          <img src="/assets/icons/settings.svg" alt="" width="20" height="20"/> Settings
+        </button>
+      </nav>
+
+      <div class="system-status-bar">
+        <div id="top-bar-wifi" class="status-pill online">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+          <span>Wi-Fi</span>
+        </div>
+        <div class="status-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span id="top-bar-clock">--:--</span>
+        </div>
+        <button type="button" id="nav-profile-btn" class="focusable" tabindex="0" title="User Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Screens Container -->
+    <main id="screen-container">
+      
+      <!-- Screen 1: Home Screen -->
+      <section id="screen-home" class="screen-view active">
+        <!-- Hero Featured Card -->
+        <article class="hero-featured-card">
+          <img class="hero-background-image" src="/assets/images/hero-cosmos.svg" alt="Featured Backdrop"/>
+          <div class="hero-content">
+            <span class="hero-badge-tag">Featured Premiere</span>
+            <h1 class="hero-title">Interstellar Odyssey</h1>
+            <p class="hero-description">A team of exploratory astronauts travel through a newly discovered wormhole in deep space to find humanity's future home before Earth's time expires.</p>
+            <div class="hero-actions">
+              <button type="button" id="btn-hero-watch" class="btn-tv btn-tv-primary focusable" tabindex="0">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg> Watch Now
+              </button>
+              <button type="button" id="btn-hero-details" class="btn-tv btn-tv-secondary focusable" tabindex="0">
+                More Details
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Continue Watching Row -->
+        <section class="tv-row-section">
+          <div class="tv-row-header">
+            <h2 class="tv-row-title">Continue Watching</h2>
+            <span class="tv-row-subtext">Resume from your devices</span>
+          </div>
+          <div class="tv-row-scroll-container">
+            <div class="media-card focusable" tabindex="0" onclick="window.TVLibrary.playMediaItem('Neon Horizon • S2:E4')">
+              <img class="media-card-thumb" src="/assets/images/card-show1.svg" alt="Neon Horizon"/>
+              <div class="media-card-overlay">
+                <div class="media-card-title">Neon Horizon • S2:E4</div>
+                <div class="media-card-meta">42 min remaining</div>
+                <div class="media-card-progress-bar"><div class="media-card-progress-fill" style="width: 65%;"></div></div>
+              </div>
+            </div>
+            <div class="media-card focusable" tabindex="0" onclick="window.TVLibrary.playMediaItem('Secrets of the Deep')">
+              <img class="media-card-thumb" src="/assets/images/card-movie2.svg" alt="Secrets of the Deep"/>
+              <div class="media-card-overlay">
+                <div class="media-card-title">Secrets of the Deep</div>
+                <div class="media-card-meta">1h 10m remaining</div>
+                <div class="media-card-progress-bar"><div class="media-card-progress-fill" style="width: 35%;"></div></div>
+              </div>
+            </div>
+            <div class="media-card focusable" tabindex="0" onclick="window.TVLibrary.playMediaItem('Chef\'s Journey: Kyoto')">
+              <img class="media-card-thumb" src="/assets/images/card-show2.svg" alt="Chef's Journey"/>
+              <div class="media-card-overlay">
+                <div class="media-card-title">Chef's Journey: Kyoto</div>
+                <div class="media-card-meta">18 min remaining</div>
+                <div class="media-card-progress-bar"><div class="media-card-progress-fill" style="width: 80%;"></div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Your Apps Row -->
+        <section class="tv-row-section">
+          <div class="tv-row-header">
+            <h2 class="tv-row-title">Your Apps</h2>
+            <span class="tv-row-subtext">Favorite streaming services</span>
+          </div>
+          <div id="row-your-apps" class="tv-row-scroll-container">
+            <!-- Dynamically populated from applications.json -->
+          </div>
+        </section>
+
+        <!-- Recommended For You Row -->
+        <section class="tv-row-section">
+          <div class="tv-row-header">
+            <h2 class="tv-row-title">Recommended for You</h2>
+            <span class="tv-row-subtext">Curated selections</span>
+          </div>
+          <div class="tv-row-scroll-container">
+            <div class="media-card focusable" tabindex="0" onclick="window.TVLibrary.playMediaItem('Interstellar Odyssey')">
+              <img class="media-card-thumb" src="/assets/images/card-movie1.svg" alt="Interstellar Odyssey"/>
+              <div class="media-card-overlay">
+                <div class="media-card-title">Interstellar Odyssey</div>
+                <div class="media-card-meta">Sci-Fi • 4K HDR • 2024</div>
+              </div>
+            </div>
+            <div class="media-card focusable" tabindex="0" onclick="window.TVLibrary.playMediaItem('Chef\'s Journey: Kyoto')">
+              <img class="media-card-thumb" src="/assets/images/card-show2.svg" alt="Chef's Journey"/>
+              <div class="media-card-overlay">
+                <div class="media-card-title">Chef's Journey: Kyoto</div>
+                <div class="media-card-meta">Culture & Food • 55m</div>
+              </div>
+            </div>
+            <div class="media-card focusable" tabindex="0" onclick="window.TVLibrary.playMediaItem('Secrets of the Deep')">
+              <img class="media-card-thumb" src="/assets/images/card-movie2.svg" alt="Secrets of the Deep"/>
+              <div class="media-card-overlay">
+                <div class="media-card-title">Secrets of the Deep</div>
+                <div class="media-card-meta">Documentary • 1080p</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Recently Opened Row -->
+        <section class="tv-row-section">
+          <div class="tv-row-header">
+            <h2 class="tv-row-title">Recently Opened</h2>
+            <span class="tv-row-subtext">Quick shortcuts</span>
+          </div>
+          <div id="row-recent-apps" class="tv-row-scroll-container">
+            <!-- Dynamically populated from recent_apps.json -->
+          </div>
+        </section>
+      </section>
+
+      <!-- Screen 2: Apps Screen -->
+      <section id="screen-apps" class="screen-view">
+        <div class="apps-management-toolbar">
+          <div>
+            <h2 style="font-size: 1.5rem; font-weight: 700;">Applications Library</h2>
+            <p class="tv-row-subtext">Manage, launch, and customize web services for your television</p>
+          </div>
+          <div style="display: flex; gap: 12px;">
+            <button type="button" id="btn-add-app" class="btn-tv btn-tv-primary focusable" tabindex="0">
+              + Add Application
+            </button>
+            <button type="button" id="btn-manage-apps" class="btn-tv btn-tv-secondary focusable" tabindex="0">
+              Manage Apps
+            </button>
+          </div>
+        </div>
+
+        <div id="apps-grid-container" class="apps-grid">
+          <!-- Dynamically populated grid of apps -->
+        </div>
+      </section>
+
+      <!-- Screen 3: Search Screen -->
+      <section id="screen-search" class="screen-view">
+        <div class="search-container">
+          <div class="search-input-box focusable" tabindex="0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <div id="search-query-text" class="search-display-text placeholder">Type or use D-pad to search apps and media...</div>
+          </div>
+
+          <!-- On-Screen Virtual Keyboard -->
+          <div id="tv-virtual-keyboard" class="virtual-keyboard">
+            <!-- Generated via search.js -->
+          </div>
+
+          <!-- Search Results Area -->
+          <div id="search-results-container" class="search-results-section">
+            <!-- Results populated in real-time -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Screen 4: Media Library Screen -->
+      <section id="screen-library" class="screen-view">
+        <div class="apps-management-toolbar">
+          <div>
+            <h2 style="font-size: 1.5rem; font-weight: 700;">Media Collection</h2>
+            <p id="library-status-msg" class="tv-row-subtext">Connecting to Jellyfin media server...</p>
+          </div>
+          <div>
+            <span id="library-server-status" class="status-pill">Connecting...</span>
+          </div>
+        </div>
+
+        <div id="library-content-container">
+          <!-- Loaded via library.js -->
+        </div>
+      </section>
+
+      <!-- Screen 5: Settings Screen -->
+      <section id="screen-settings" class="screen-view">
+        <div class="settings-layout">
+          <!-- Left Navigation Sidebar -->
+          <aside class="settings-sidebar">
+            <button type="button" class="settings-nav-item focusable active" data-tab="display" tabindex="0">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              Display
+            </button>
+            <button type="button" class="settings-nav-item focusable" data-tab="network" tabindex="0">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+              Network
+            </button>
+            <button type="button" class="settings-nav-item focusable" data-tab="system" tabindex="0">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg>
+              System Diagnostics
+            </button>
+            <button type="button" class="settings-nav-item focusable" data-tab="interface" tabindex="0">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              Interface
+            </button>
+            <button type="button" class="settings-nav-item focusable" data-tab="about" tabindex="0">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              About & Power
+            </button>
+          </aside>
+
+          <!-- Right Content Panel -->
+          <div class="settings-content-panel">
+            <!-- Display Tab -->
+            <div id="tab-panel-display" class="settings-tab-panel">
+              <h3 class="settings-group-title">Display & Scaling</h3>
+              <div class="settings-item-row">
+                <div class="settings-item-info">
+                  <h4>UI Scaling Factor</h4>
+                  <p>Scale interface elements for 720p, 1080p, or 4K screen distance</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 14px;">
+                  <button type="button" id="scale-down-btn" class="btn-tv btn-tv-secondary focusable" tabindex="0">-</button>
+                  <span id="display-scale-val" style="font-weight: 700; font-size: 1.1rem; min-width: 50px; text-align: center;">100%</span>
+                  <button type="button" id="scale-up-btn" class="btn-tv btn-tv-secondary focusable" tabindex="0">+</button>
+                </div>
+              </div>
+              <div class="settings-item-row">
+                <div class="settings-item-info">
+                  <h4>Screensaver Timeout</h4>
+                  <p>Ambient clock backdrop after period of inactivity</p>
+                </div>
+                <div>
+                  <select id="screensaver-select" class="form-input focusable" tabindex="0" style="width: 160px;">
+                    <option value="2">2 Minutes</option>
+                    <option value="5" selected>5 Minutes</option>
+                    <option value="15">15 Minutes</option>
+                    <option value="0">Disabled</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Network Tab -->
+            <div id="tab-panel-network" class="settings-tab-panel" style="display: none;">
+              <h3 class="settings-group-title">Network Configuration</h3>
+              <div class="settings-item-row">
+                <div class="settings-item-info">
+                  <h4>IP Address (Local Network)</h4>
+                  <p>Use this IP to access the smartphone remote control</p>
+                </div>
+                <span id="setting-net-ip" style="font-family: monospace; font-size: 1.1rem; color: var(--accent-blue);">192.168.1.100</span>
+              </div>
+              <div class="settings-item-row">
+                <div class="settings-item-info">
+                  <h4>Smartphone Remote URL</h4>
+                  <p>Point any mobile browser on your local Wi-Fi here</p>
+                </div>
+                <span style="font-family: monospace; font-size: 1rem; color: var(--text-secondary);">http://&lt;IP&gt;:8080/remote</span>
+              </div>
+            </div>
+
+            <!-- System Tab (Genuine Metrics) -->
+            <div id="tab-panel-system" class="settings-tab-panel" style="display: none;">
+              <h3 class="settings-group-title">Hardware & Operating System Metrics</h3>
+              <div class="system-metrics-grid">
+                <div class="metric-card">
+                  <div class="metric-label">CPU Utilization</div>
+                  <div id="metric-cpu-val" class="metric-value">-- %</div>
+                  <div class="metric-sub">Quad-Core BCM2837B0 @ 1.4GHz</div>
+                </div>
+                <div class="metric-card">
+                  <div class="metric-label">Memory (RAM)</div>
+                  <div id="metric-ram-val" class="metric-value">-- / 1024 MB</div>
+                  <div class="metric-sub">1GB LPDDR2 Shared RAM</div>
+                </div>
+                <div class="metric-card">
+                  <div class="metric-label">SoC Temperature</div>
+                  <div id="metric-temp-val" class="metric-value">-- °C</div>
+                  <div class="metric-sub">Thermal throttle limit: 80°C</div>
+                </div>
+                <div class="metric-card">
+                  <div class="metric-label">Storage Capacity</div>
+                  <div id="metric-storage-val" class="metric-value">-- GB Free</div>
+                  <div class="metric-sub">DietPi Root File System</div>
+                </div>
+              </div>
+
+              <div class="settings-item-row" style="margin-top: 24px;">
+                <div class="settings-item-info">
+                  <h4>Target Model</h4>
+                  <p id="setting-sys-model">Raspberry Pi 3 Model B+</p>
+                </div>
+              </div>
+              <div class="settings-item-row">
+                <div class="settings-item-info">
+                  <h4>System Uptime</h4>
+                  <p id="setting-sys-uptime">Loading...</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Interface Tab -->
+            <div id="tab-panel-interface" class="settings-tab-panel" style="display: none;">
+              <h3 class="settings-group-title">Interface & Performance Tuning</h3>
+              <div class="settings-item-row">
+                <div class="settings-item-info">
+                  <h4>Reduced Animations (Pi 3B+ Mode)</h4>
+                  <p>Disables heavy CSS transitions to conserve VideoCore IV GPU bandwidth</p>
+                </div>
+                <div>
+                  <button type="button" id="reduced-motion-toggle" class="btn-tv btn-tv-secondary focusable" tabindex="0">
+                    <span id="reduced-motion-status">Enabled (Optimized for Pi 3B+)</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- About & Power Tab -->
+            <div id="tab-panel-about" class="settings-tab-panel" style="display: none;">
+              <h3 class="settings-group-title">About System & Power Management</h3>
+              <div class="settings-item-row">
+                <div class="settings-item-info">
+                  <h4>Smart TV Launcher Version</h4>
+                  <p>1.0.0 (DietPi Appliance Edition)</p>
+                </div>
+              </div>
+              <div class="settings-item-row">
+                <div class="settings-item-info">
+                  <h4>Operating Environment</h4>
+                  <p id="setting-sys-kernel">Linux DietPi ARM64 / Chromium Kiosk</p>
+                </div>
+              </div>
+              <div style="display: flex; gap: 16px; margin-top: 30px;">
+                <button type="button" id="btn-system-reboot" class="btn-tv btn-tv-secondary focusable" tabindex="0" style="border-color: var(--accent-warning);">
+                  🔄 Reboot Raspberry Pi
+                </button>
+                <button type="button" id="btn-system-shutdown" class="btn-tv btn-tv-secondary focusable" tabindex="0" style="border-color: var(--accent-danger); color: #fca5a5;">
+                  ⚡ Power Off
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Modal: Add / Edit Application -->
+    <div id="modal-app-editor" class="modal-overlay">
+      <div class="modal-dialog">
+        <h3 id="modal-app-editor-title" class="modal-title">Edit Application</h3>
+        <div class="form-group">
+          <label class="form-label" for="app-edit-name">Application Name</label>
+          <input type="text" id="app-edit-name" class="form-input focusable" placeholder="e.g. YouTube"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="app-edit-url">Launch URL</label>
+          <input type="text" id="app-edit-url" class="form-input focusable" placeholder="https://www.youtube.com/tv"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="app-edit-icon">Icon Asset Path</label>
+          <input type="text" id="app-edit-icon" class="form-input focusable" placeholder="/assets/icons/browser.svg"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="app-edit-category">Category</label>
+          <input type="text" id="app-edit-category" class="form-input focusable" placeholder="streaming, music, utilities, games"/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="btn-app-delete" class="btn-tv btn-tv-secondary focusable" style="color: var(--accent-danger); border-color: var(--accent-danger);">Delete</button>
+          <button type="button" id="btn-app-cancel" class="btn-tv btn-tv-secondary focusable">Cancel</button>
+          <button type="button" id="btn-app-save" class="btn-tv btn-tv-primary focusable">Save Application</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: DRM & Hardware Performance Warning -->
+    <div id="modal-drm-warning" class="modal-overlay">
+      <div class="modal-dialog">
+        <h3 class="modal-title" style="color: var(--accent-warning);">⚠️ Hardware & DRM Advisory</h3>
+        <p style="color: var(--text-secondary); line-height: 1.6; font-size: 1.05rem;">
+          You are launching <strong id="drm-app-name" style="color: #ffffff;">Streaming Service</strong>.
+        </p>
+        <div style="background: rgba(245, 158, 11, 0.1); border-left: 4px solid var(--accent-warning); padding: 14px; border-radius: 8px;">
+          <p style="font-size: 0.95rem; color: #fbbf24; line-height: 1.5;">
+            <strong>Raspberry Pi 3B+ Limitation:</strong> This service requires Widevine L3 DRM (software decryption). Due to 1GB RAM and 1.4GHz CPU limits, playback is restricted to 480p/720p and will cause high CPU utilization. For optimal living room playback, Jellyfin or Plex direct streams are strongly recommended.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="btn-drm-cancel" class="btn-tv btn-tv-secondary focusable">Return to TV</button>
+          <button type="button" id="btn-drm-proceed" class="btn-tv btn-tv-primary focusable">Proceed Anyway</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Media Player Simulator -->
+    <div id="modal-media-player" class="modal-overlay">
+      <div class="modal-dialog" style="width: 800px;">
+        <h3 id="player-media-title" class="modal-title">Media Title</h3>
+        <div style="width: 100%; height: 360px; background: #000000; border-radius: 12px; display: flex; align-items: center; justify-content: center; position: relative;">
+          <div style="text-align: center; color: var(--text-secondary);">
+            <svg viewBox="0 0 24 24" width="64" height="64" fill="var(--accent-blue)"><polygon points="5,3 19,12 5,21"/></svg>
+            <p style="margin-top: 12px; font-size: 1.1rem; color: #ffffff;">Direct Stream Active (Hardware H.264 Acceleration)</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">1080p @ 30fps • Stereo AAC</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-tv btn-tv-primary focusable" onclick="window.SpatialNav.closeModal()">Close Player</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Screensaver Ambient Overlay -->
+    <div id="tv-screensaver">
+      <div class="screensaver-clock">12:00</div>
+      <div class="screensaver-date">Monday, November 17</div>
+      <div class="screensaver-hint">Press any remote button to wake</div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="tv-toast">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--accent-blue)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      <span id="tv-toast-message">Notification</span>
+    </div>
+
+  </div>
+
+  <!-- Vanilla Scripts -->
+  <script src="/js/navigation.js"></script>
+  <script src="/js/router.js"></script>
+  <script src="/js/applications.js"></script>
+  <script src="/js/search.js"></script>
+  <script src="/js/library.js"></script>
+  <script src="/js/settings.js"></script>
+  <script src="/js/remote-client.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

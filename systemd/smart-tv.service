@@ -1,0 +1,18 @@
+[Unit]
+Description=Smart TV OS Backend Service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/smart-tv
+Environment=PYTHONUNBUFFERED=1
+Environment=SMART_TV_HOST=0.0.0.0
+Environment=SMART_TV_PORT=8080
+ExecStart=/opt/smart-tv/venv/bin/python -m uvicorn backend.app:app --host 0.0.0.0 --port 8080
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

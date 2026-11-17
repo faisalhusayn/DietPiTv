@@ -1,0 +1,264 @@
+/* ==========================================================================
+   Google TV-Inspired Smart TV Launcher - Base Styles
+   Optimized for Raspberry Pi 3B+ (VideoCore IV GPU, 10-Foot Television Viewing)
+   ========================================================================== */
+
+:root {
+  --ui-scale: 1.0;
+  
+  /* Color Palette */
+  --bg-darkest: #070a10;
+  --bg-darker: #0d121d;
+  --bg-card: #151c2c;
+  --bg-card-hover: #1e283d;
+  --bg-surface: #222d42;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  
+  /* Accents */
+  --accent-blue: #3b82f6;
+  --accent-glow: rgba(59, 130, 246, 0.45);
+  --accent-focus-border: #60a5fa;
+  --accent-warning: #f59e0b;
+  --accent-danger: #ef4444;
+  --accent-success: #10b981;
+
+  /* Typography */
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  /* Spacing */
+  --nav-height: 72px;
+  --screen-padding: 48px;
+  --card-radius: 14px;
+}
+
+/* Reset & Box Sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-darkest);
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  font-size: calc(16px * var(--ui-scale));
+}
+
+/* Base App Shell */
+#tv-app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(circle at 80% 20%, #151d30 0%, #080c14 70%);
+}
+
+/* ==========================================================================
+   Focus System & 10-Foot Television Navigation
+   Hardware-Accelerated Transitions (Avoid Repaints/Reflows)
+   ========================================================================== */
+
+.focusable {
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1),
+              box-shadow 0.15s cubic-bezier(0.2, 0, 0, 1),
+              border-color 0.15s ease;
+  will-change: transform;
+}
+
+.focusable.focused {
+  transform: scale(1.05);
+  border-color: var(--accent-focus-border) !important;
+  box-shadow: 0 0 0 3px var(--accent-focus-border),
+              0 12px 28px rgba(0, 0, 0, 0.6),
+              0 0 25px var(--accent-glow) !important;
+  z-index: 10;
+}
+
+/* Reduced animations flag for Pi 3B+ */
+body.reduced-motion .focusable {
+  transition: none !important;
+}
+
+/* ==========================================================================
+   Top Navigation Bar
+   ========================================================================== */
+
+#top-nav-bar {
+  height: var(--nav-height);
+  padding: 0 var(--screen-padding);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 50;
+  background: linear-gradient(to bottom, rgba(7, 10, 16, 0.95), rgba(7, 10, 16, 0));
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-badge {
+  background: linear-gradient(135deg, #2563eb, #38bdf8);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-item {
+  color: var(--text-secondary);
+  font-size: 1.15rem;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 24px;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+}
+
+.nav-item.active {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-item.focused {
+  color: #ffffff;
+  background: var(--accent-blue);
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+
+.system-status-bar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.status-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border-subtle);
+}
+
+.status-pill svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--text-secondary);
+}
+
+.status-pill.online svg {
+  stroke: var(--accent-success);
+}
+
+#nav-profile-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  border: 2px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#nav-profile-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--text-secondary);
+}
+
+/* ==========================================================================
+   Main Screen Container & Views
+   ========================================================================== */
+
+#screen-container {
+  flex: 1;
+  width: 100%;
+  height: calc(100vh - var(--nav-height));
+  position: relative;
+  overflow: hidden;
+}
+
+.screen-view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0 var(--screen-padding) var(--screen-padding) var(--screen-padding);
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  scrollbar-width: none; /* Firefox */
+}
+
+.screen-view::-webkit-scrollbar {
+  display: none; /* Chrome/WebKit */
+}
+
+.screen-view.active {
+  display: block;
+  opacity: 1;
+}
+
+/* Toast Notification */
+#tv-toast {
+  position: fixed;
+  bottom: 36px;
+  right: 48px;
+  background: rgba(17, 24, 39, 0.95);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--accent-blue);
+  color: var(--text-primary);
+  padding: 14px 22px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1000;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+#tv-toast.visible {
+  transform: translateY(0);
+  opacity: 1;
+}

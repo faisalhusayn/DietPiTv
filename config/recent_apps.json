@@ -1,0 +1,20 @@
+[
+  {
+    "id": "youtube",
+    "name": "YouTube",
+    "icon": "/assets/icons/youtube.svg",
+    "last_launched": "2026-11-17T18:30:00"
+  },
+  {
+    "id": "jellyfin",
+    "name": "Jellyfin",
+    "icon": "/assets/icons/jellyfin.svg",
+    "last_launched": "2026-11-17T17:15:00"
+  },
+  {
+    "id": "spotify",
+    "name": "Spotify",
+    "icon": "/assets/icons/spotify.svg",
+    "last_launched": "2026-11-17T15:45:00"
+  }
+]
