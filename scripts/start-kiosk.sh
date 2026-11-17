@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ==============================================================================
 # Smart TV Kiosk Startup Script (Executed under xinit)
-# Launches matchbox-window-manager, unclutter, and Chromium in edge-to-edge fullscreen
+# Launches matchbox-window-manager, unclutter, and Chromium with hardware acceleration
 # ==============================================================================
 
 # 1. Disable X11 blanking and screen timeouts
@@ -38,6 +38,7 @@ while true; do
     --window-size=1920,1080 \
     --window-position=0,0 \
     --remote-debugging-port=9222 \
+    --load-extension=/opt/smart-tv/extensions/h264ify \
     --user-agent="Mozilla/5.0 (SMART-TV; Linux; Tizen 6.0) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/4.0 Chrome/76.0.3809.146 TV Safari/537.36" \
     --noerrdialogs \
     --disable-infobars \
@@ -47,14 +48,15 @@ while true; do
     --overscroll-history-navigation=0 \
     --autoplay-policy=no-user-gesture-required \
     --disable-features=TranslateUI \
+    --ignore-gpu-blocklist \
+    --enable-gpu-rasterization \
+    --enable-zero-copy \
     --disk-cache-dir=/tmp/chromium-cache \
     --disk-cache-size=33554432 \
     --media-cache-size=33554432 \
     --js-flags="--max-old-space-size=256" \
     --renderer-process-limit=2 \
     --disable-dev-shm-usage \
-    --enable-gpu-rasterization \
-    --enable-zero-copy \
     http://localhost:8080
 
   echo "Chromium exited. Recovering kiosk session in 2 seconds..."
