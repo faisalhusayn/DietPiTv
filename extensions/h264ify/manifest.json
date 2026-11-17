@@ -5,7 +5,11 @@
   "description": "Forces YouTube to stream hardware-accelerated H.264 instead of software VP9/AV1",
   "content_scripts": [
     {
-      "matches": ["*://*.youtube.com/*"],
+      "matches": [
+        "*://*.youtube.com/*",
+        "*://*.youtube-nocookie.com/*",
+        "*://*.googlevideo.com/*"
+      ],
       "js": ["inject.js"],
       "run_at": "document_start",
       "world": "MAIN"
