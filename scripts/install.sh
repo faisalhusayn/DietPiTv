@@ -37,7 +37,7 @@ echo -e "${GREEN}[2/8] Updating package repositories...${NC}"
 apt-get update -y
 
 echo -e "${GREEN}[3/8] Installing minimal system dependencies...${NC}"
-# Install X11, video drivers, Chromium, Python, CEC utils, and unclutter
+# Install X11, video drivers, window manager, Chromium, Python, CEC utils, and unclutter
 apt-get install -y --no-install-recommends \
   xserver-xorg-core \
   xserver-xorg-video-fbdev \
@@ -45,6 +45,9 @@ apt-get install -y --no-install-recommends \
   xserver-xorg-input-all \
   xinit \
   x11-xserver-utils \
+  x11-utils \
+  xdotool \
+  matchbox-window-manager \
   xserver-xorg-legacy \
   chromium \
   unclutter \

@@ -11,7 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from backend.config import FRONTEND_DIR, SERVER_HOST, SERVER_PORT
 from backend.services.websocket_manager import ws_manager
-from backend.services.cec_listener import cec_service
+from backend.services.cec_listener import cec_service, dispatch_x11_event
 from backend.api import apps, system, settings, remote
 
 # Configure logging
@@ -87,8 +87,11 @@ async def websocket_remote_endpoint(
         data = json.loads(data_text)
         action = data.get("action")
         
-        # If received from phone remote, forward immediately to TV
+        # If received from phone remote, forward immediately to TV & X11
         if client_type == "phone":
+          if action:
+            dispatch_x11_event(action)
+
           if action == "LAUNCH" and data.get("app_id"):
             app_id = data["app_id"]
             from backend.services.app_registry import app_registry_service

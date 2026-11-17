@@ -37,6 +37,8 @@ while true; do
     --start-maximized \
     --window-size=1920,1080 \
     --window-position=0,0 \
+    --remote-debugging-port=9222 \
+    --user-agent="Mozilla/5.0 (SMART-TV; Linux; Tizen 6.0) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/4.0 Chrome/76.0.3809.146 TV Safari/537.36" \
     --noerrdialogs \
     --disable-infobars \
     --check-for-update-interval=31536000 \

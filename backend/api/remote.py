@@ -6,6 +6,7 @@ from typing import Optional, Dict, Any
 
 from backend.services.websocket_manager import ws_manager
 from backend.services.settings_manager import settings_manager_service
+from backend.services.cec_listener import dispatch_x11_event
 
 logger = logging.getLogger("smart_tv.remote_api")
 router = APIRouter(tags=["Remote & Media"])
@@ -23,6 +24,7 @@ async def trigger_remote_action(payload: RemoteActionModel):
   Useful as fallback or for automated local integrations.
   """
   action_dict = payload.model_dump(exclude_none=True)
+  dispatch_x11_event(payload.action)
   await ws_manager.broadcast_to_tv(action_dict)
   return {"status": "dispatched", "action": payload.action}
 

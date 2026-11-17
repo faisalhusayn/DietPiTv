@@ -34,23 +34,50 @@ CEC_KEY_MAP = {
   "f2 (red)": "SEARCH"
 }
 
+def dispatch_x11_event(action: str):
+  """Dispatches simulated key events to X11 display :0 via xdotool."""
+  x11_key_map = {
+    "UP": "Up",
+    "DOWN": "Down",
+    "LEFT": "Left",
+    "RIGHT": "Right",
+    "SELECT": "Return",
+    "ENTER": "Return",
+    "OK": "Return",
+    "BACK": "Escape",
+    "PLAY_PAUSE": "space"
+  }
+  try:
+    if action == "HOME":
+      nav_script = "/opt/smart-tv/scripts/nav-home.sh"
+      if os.path.exists(nav_script):
+        subprocess.Popen(["/bin/bash", nav_script])
+      else:
+        env = dict(os.environ, DISPLAY=":0")
+        subprocess.Popen(["xdotool", "key", "alt+Home"], env=env)
+    elif action in x11_key_map:
+      key = x11_key_map[action]
+      env = dict(os.environ, DISPLAY=":0")
+      subprocess.Popen(["xdotool", "key", key], env=env)
+  except Exception as e:
+    logger.debug(f"xdotool dispatch failed: {e}")
+
 class CECListenerService:
   def __init__(self):
     self.is_running = False
     self.thread: Optional[threading.Thread] = None
     self.process: Optional[subprocess.Popen] = None
     self.last_key_time = 0
-    self.debounce_ms = 200
+    self.debounce_ms = 180
 
   def start(self):
     """Starts the CEC monitoring daemon thread."""
     if self.is_running:
       return
 
-    # Check for cec-client binary
     cec_bin = shutil.which("cec-client")
     if not cec_bin and not os.path.exists("/usr/bin/cec-client"):
-      logger.info("[CEC] 'cec-client' binary not found. HDMI-CEC monitoring is inactive (keyboard & smartphone remote active).")
+      logger.info("[CEC] 'cec-client' binary not found. HDMI-CEC monitoring is inactive.")
       return
 
     self.is_running = True
@@ -89,20 +116,14 @@ class CECListenerService:
         time.sleep(5)
 
   def _parse_line(self, line: str):
-    """
-    Parses output lines from cec-client:
-    e.g. "DEBUG:   [ 12345] key pressed: up (1)"
-    """
     if "key pressed:" in line.lower():
       match = re.search(r"key pressed:\s*([a-zA-Z0-9\s\(\)]+)", line, re.IGNORECASE)
       if match:
         raw_key = match.group(1).lower().strip()
-        # Handle "up (1)" -> extract "up" or "1"
         key_name = re.sub(r"\s*\(\d+\)", "", raw_key).strip()
         
         action = CEC_KEY_MAP.get(key_name)
         if not action:
-          # Try extracting code in parentheses
           code_match = re.search(r"\((\d+)\)", raw_key)
           if code_match:
             action = CEC_KEY_MAP.get(code_match.group(1))
@@ -112,7 +133,11 @@ class CECListenerService:
           if now - self.last_key_time >= self.debounce_ms:
             self.last_key_time = now
             logger.info(f"[CEC] Intercepted TV Remote action: {action}")
-            # Dispatch to async event loop
+            
+            # 1. Forward keypress globally to X11 display (for YouTube TV, Jellyfin, etc.)
+            dispatch_x11_event(action)
+
+            # 2. Dispatch to WebSocket hub (for internal Smart TV UI)
             try:
               loop = asyncio.get_event_loop()
               if loop.is_running():
@@ -121,6 +146,6 @@ class CECListenerService:
                   loop
                 )
             except Exception as ex:
-              logger.warning(f"[CEC] Broadcast dispatch error: {ex}")
+              logger.debug(f"[CEC] Broadcast dispatch error: {ex}")
 
 cec_service = CECListenerService()
