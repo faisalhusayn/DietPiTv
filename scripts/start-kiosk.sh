@@ -30,6 +30,9 @@ while true; do
     --no-sandbox \
     --test-type \
     --kiosk \
+    --start-fullscreen \
+    --start-maximized \
+    --window-position=0,0 \
     --noerrdialogs \
     --disable-infobars \
     --check-for-update-interval=31536000 \
