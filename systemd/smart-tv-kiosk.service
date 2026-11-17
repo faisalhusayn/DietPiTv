@@ -1,18 +1,15 @@
 [Unit]
 Description=Smart TV Kiosk Display Session (Direct X11)
-After=smart-tv.service sound.target
+After=network.target sound.target smart-tv.service
 Wants=smart-tv.service
 
 [Service]
 Type=simple
 User=root
-PAMName=login
-TTYPath=/dev/tty1
-StandardInput=tty
 WorkingDirectory=/opt/smart-tv
-ExecStart=/usr/bin/xinit /opt/smart-tv/scripts/start-kiosk.sh -- :0 vt1 -nocursor
+ExecStart=/usr/bin/xinit /opt/smart-tv/scripts/start-kiosk.sh -- :0 -nocursor
 Restart=always
 RestartSec=3
 
 [Install]
-WantedBy=graphical.target
+WantedBy=multi-user.target
